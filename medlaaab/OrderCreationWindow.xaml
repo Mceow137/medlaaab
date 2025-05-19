@@ -1,0 +1,89 @@
+﻿<Window x:Class="medlaaab.OrderCreationWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:medlaaab"
+        mc:Ignorable="d"
+        Title="Формирование заказа" Height="600" Width="800"
+        WindowStartupLocation="CenterScreen">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Штрих-код -->
+        <GroupBox Grid.Row="0" Header="Штрих-код пробирки" Margin="0,0,0,10">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBox Grid.Column="0" x:Name="BarcodeTextBox" KeyDown="BarcodeTextBox_KeyDown"
+                         VerticalContentAlignment="Center" FontSize="14"/>
+                <Button Grid.Column="1" Content="Сканировать" Margin="5,0,0,0" Padding="10,3"/>
+            </Grid>
+        </GroupBox>
+
+        <!-- Изображение штрих-кода -->
+        <GroupBox Grid.Row="1" Header="Сгенерированный штрих-код" Margin="0,0,0,10">
+            <StackPanel>
+                <Image x:Name="BarcodeImage" Height="80" Stretch="Uniform"/>
+                <Button x:Name="SaveBarcodeButton" Content="Сохранить в PDF" 
+                        Click="SaveBarcodeButton_Click" Margin="0,5,0,0" Padding="10,3"
+                        IsEnabled="False"/>
+            </StackPanel>
+        </GroupBox>
+
+        <!-- Поиск пациента -->
+        <GroupBox Grid.Row="2" Header="Пациент" Margin="0,0,0,10">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBox Grid.Column="0" x:Name="PatientSearchTextBox" 
+                         VerticalContentAlignment="Center" FontSize="14"/>
+                <Button Grid.Column="1" Content="Найти" Margin="5,0,0,0" Padding="10,3"
+                        Click="FindPatientButton_Click"/>
+            </Grid>
+        </GroupBox>
+
+        <!-- Информация о пациенте -->
+        <TextBlock Grid.Row="3" x:Name="PatientInfoTextBlock" Margin="0,0,0,10"
+                   TextWrapping="Wrap" FontSize="14"/>
+
+        <!-- Услуги -->
+        <GroupBox Grid.Row="4" Header="Услуги">
+            <DockPanel>
+                <Button DockPanel.Dock="Top" Content="Добавить услугу" 
+                        Click="AddServiceButton_Click" Margin="0,0,0,5" Padding="10,3"/>
+                <ListBox x:Name="ServicesListBox">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding код}" Width="50"/>
+                                <TextBlock Text="{Binding наименование}" Width="300"/>
+                                <TextBlock Text="{Binding стоимость, StringFormat={}{0:C}}"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </DockPanel>
+        </GroupBox>
+
+        <!-- Итого и кнопка создания -->
+        <StackPanel Grid.Row="5" Orientation="Horizontal" HorizontalAlignment="Right">
+            <TextBlock x:Name="TotalTextBlock" VerticalAlignment="Center" Margin="0,0,10,0"
+                       FontSize="14" FontWeight="Bold"/>
+            <Button Content="Создать заказ" Click="CreateOrderButton_Click" Padding="20,5"/>
+        </StackPanel>
+    </Grid>
+</Window>

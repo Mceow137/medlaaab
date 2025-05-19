@@ -1,0 +1,36 @@
+﻿<Window x:Class="medlaaab.AcceptMaterialControl"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:medlaaab"
+        mc:Ignorable="d"
+        Title="AcceptMaterialControl" Height="450" Width="800">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Text="Пациент:" Margin="0,0,0,5"/>
+        <ComboBox Grid.Row="1" x:Name="PatientsComboBox" Margin="0,0,0,10"/>
+
+        <TextBlock Grid.Row="2" Text="Услуги:" Margin="0,0,0,5"/>
+        <ListBox Grid.Row="3" x:Name="ServicesListBox" SelectionMode="Multiple" Height="200">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding код}" Width="50"/>
+                        <TextBlock Text="{Binding наименование}" Width="200"/>
+                        <TextBlock Text="{Binding стоимость, StringFormat={}{0:C}}"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+        <Button Grid.Row="4" Content="Создать заказ" x:Name="CreateOrderButton" 
+                Click="CreateOrderButton_Click" Margin="0,10,0,0" Padding="10,3"/>
+    </Grid>
+</Window>

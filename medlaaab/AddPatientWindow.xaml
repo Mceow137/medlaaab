@@ -1,0 +1,64 @@
+﻿<Window x:Class="medlaaab.AddPatientWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:medlaaab"
+        mc:Ignorable="d"
+        Title="Добавление пациента" Height="450" Width="400"
+        WindowStartupLocation="CenterScreen">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Text="Фамилия*:" Margin="0,0,0,5"/>
+        <TextBox Grid.Row="1" x:Name="LastNameTextBox" Margin="0,0,0,10"/>
+
+        <TextBlock Grid.Row="2" Text="Имя*:" Margin="0,0,0,5"/>
+        <TextBox Grid.Row="3" x:Name="FirstNameTextBox" Margin="0,0,0,10"/>
+
+        <TextBlock Grid.Row="4" Text="Отчество:" Margin="0,0,0,5"/>
+        <TextBox Grid.Row="5" x:Name="MiddleNameTextBox" Margin="0,0,0,10"/>
+
+        <TextBlock Grid.Row="6" Text="Дата рождения*:" Margin="0,0,0,5"/>
+        <DatePicker Grid.Row="7" x:Name="BirthDatePicker" Margin="0,0,0,10"/>
+
+        <TextBlock Grid.Row="8" Text="Паспорт (серия и номер):" Margin="0,0,0,5"/>
+        <StackPanel Grid.Row="9" Orientation="Horizontal" Margin="0,0,0,10">
+            <TextBox x:Name="PassportSeriesTextBox" Width="50" MaxLength="4"/>
+            <TextBox x:Name="PassportNumberTextBox" Width="80" MaxLength="6" Margin="5,0,0,0"/>
+        </StackPanel>
+
+        <TextBlock Grid.Row="10" Text="Телефон:" Margin="0,0,0,5"/>
+        <TextBox Grid.Row="11" x:Name="PhoneTextBox" Margin="0,0,0,10"/>
+
+        <TextBlock Grid.Row="12" Text="Email:" Margin="0,0,0,5"/>
+        <TextBox Grid.Row="13" x:Name="EmailTextBox" Margin="0,0,0,10"/>
+
+        <TextBlock Grid.Row="14" Text="Страховой полис:" Margin="0,0,0,5"/>
+        <StackPanel Grid.Row="15" Orientation="Vertical" Margin="0,0,0,10">
+            <TextBox x:Name="InsuranceNumberTextBox" Margin="0,0,0,5"/>
+            <ComboBox x:Name="InsuranceTypeComboBox" Margin="0,5,0,0"/>
+            <ComboBox x:Name="InsuranceCompanyComboBox" Margin="0,5,0,0" 
+                      DisplayMemberPath="название"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="16" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Content="Отмена" Click="CancelButton_Click" Margin="0,0,10,0" Padding="10,3"/>
+            <Button Content="Сохранить" Click="SaveButton_Click" Padding="10,3"/>
+        </StackPanel>
+    </Grid>
+</Window>
