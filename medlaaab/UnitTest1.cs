@@ -2,38 +2,42 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.RegularExpressions;
 
-namespace UnitTestProject1
+namespace UnitTestProject5
 {
     [TestClass]
-    public class BarcodeServiceTests
+    public class UnitTest1
     {
         [TestMethod]
-        public void GenerateBarcode_ReturnsValidFormat()
+        public void IsUserBlocked_WhenBlocked_ReturnsTrue()
         {
             // Arrange
-            var barcodeService = new BarcodeService();
-            var orderId = 123;
-            var expectedPattern = @"^\d{3} \d{8} \d{6}$"; // 123 01112023 123456
+            var mockDbContext = new Mock<МедЛабDbContext>();
+            var blocks = new List<Блокировки>
+        {
+            new Блокировки
+            {
+                ip_адрес = "192.168.1.1",
+                время_начала = DateTime.Now.AddMinutes(-10),
+                длительность_минуты = 30
+            }
+            }.AsQueryable();
+
+            var mockSet = new Mock<DbSet<Блокировки>>();
+            mockSet.As<IQueryable<Блокировки>>().Setup(m => m.Provider).Returns(blocks.Provider);
+            mockSet.As<IQueryable<Блокировки>>().Setup(m => m.Expression).Returns(blocks.Expression);
+            mockSet.As<IQueryable<Блокировки>>().Setup(m => m.ElementType).Returns(blocks.ElementType);
+            mockSet.As<IQueryable<Блокировки>>().Setup(m => m.GetEnumerator()).Returns(blocks.GetEnumerator());
+
+            mockDbContext.Setup(c => c.Блокировки).Returns(mockSet.Object);
+
+            var blockingService = new BlockingService(mockDbContext.Object);
 
             // Act
-            var result = barcodeService.GenerateBarcode(orderId);
+            var result = blockingService.IsIpBlocked("192.168.1.1");
 
             // Assert
-            Assert.IsTrue(Regex.IsMatch(result, expectedPattern));
-        }
-    }
-
-    internal class BarcodeService
-    {
-        public BarcodeService()
-        {
-        }
-
-        internal string GenerateBarcode(int orderId)
-        {
-            throw new NotImplementedException();
+            Assert.IsTrue(result);
         }
     }
 }
